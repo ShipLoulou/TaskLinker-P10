@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block display %}
+	style="display: none;"
+{% endblock %}
+
+{% block title %}Inscription
+{% endblock %}
+
+{% block authBody %}
+	<div class="background">
+		<img src="{{ asset('images/backgroundAuth.jpeg') }}" alt="" class="imgBackground">
+		<a class="imgAuth" href="{{ path('app_projects') }}" id="logo">
+			<img src="{{ asset('images/logo.png') }}" alt="Logo TaskLinker"/>
+		</a>
+		<main class="mainAuth">
+			<div class="formContainer">
+				<h1>S'incrire</h1>
+				{{ form_errors(registrationForm) }}
+
+				{{ form_start(registrationForm) }}
+				{{ form_row(registrationForm.lastName) }}
+				{{ form_row(registrationForm.firstName) }}
+				{{ form_row(registrationForm.email) }}
+				{{ form_row(registrationForm.plainPassword) }}
+
+				<div id="confirmPasswordJS">
+					{{ form_label(registrationForm.confirmPassword) }}
+					{{ form_errors(registrationForm.confirmPassword) }}
+					{{ form_widget(registrationForm.confirmPassword) }}
+					{{ form_help(registrationForm.confirmPassword) }}
+				</div>
+
+				<button type="submit" class="button button-submit">Continuer</button>
+				{{ form_end(registrationForm) }}
+				<p>
+					<a href="#">Vous avez déjà un compte ?</a>
+				</p>
+			</div>
+		</main>
+	</div>
+	<script type="module" src="{{ asset('js/ConfirmPassword.js') }}"></script>
+{% endblock %}

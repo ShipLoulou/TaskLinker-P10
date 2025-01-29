@@ -647,3 +647,57 @@ form .select2-container--default .select2-selection--multiple .select2-selection
 .mainAuth .subTitle {
     margin: 30px 0 60px;
 }
+
+/* auth page */
+
+.imgBackground {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.mainAuth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.imgAuth {
+    position: absolute;
+    top: 52px;
+    left: 52px;
+}
+
+.mainAuth .formContainer {
+    position: relative;
+    background-color: #4D8077;
+    width: 710px;
+    min-height: 698px;
+    border-radius: 30px;
+    color: #FFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0
+}
+
+.mainAuth .formContainer h1 {
+    font-size: 36px;
+    margin-bottom: 50px;
+}
+
+.mainAuth .formContainer a,
+.mainAuth .formContainer form label {
+    color: #FFF;
+}
+
+.mainAuth button.button.button-submit {
+    margin-top: 50px;
+    cursor: pointer;
+}

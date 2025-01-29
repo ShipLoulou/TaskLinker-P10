@@ -7,12 +7,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class Employee implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -21,7 +23,7 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
-    #[Assert\NotBlank(message: "L'email de l'employé est obligatoire.")]
+    #[Assert\NotBlank(message: "Champs email obligatoire.")]
     private ?string $email = null;
 
     /**
@@ -37,22 +39,20 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Le nom de l'employé est obligatoire.")]
+    #[Assert\NotBlank(message: "Champs nom obligatoire.")]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Le prénom de l'employé est obligatoire.")]
+    #[Assert\NotBlank(message: "Champs prénom obligatoire.")]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Le contrat de l'employé doit être indiqué.")]
     private ?string $contract = null;
 
     #[ORM\Column]
     private ?bool $active = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\NotBlank(message: "La date d'entrée doit être renseigné.")]
     private ?\DateTimeInterface $arrival_date = null;
 
     /**
