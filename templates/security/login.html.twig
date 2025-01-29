@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block display %}
+	style="display: none;"
+{% endblock %}
+
+{% block title %}Connexion
+{% endblock %}
+
+{% block authBody %}
+	<div class="background">
+		<img src="{{ asset('images/backgroundAuth.jpeg') }}" alt="" class="imgBackground">
+		<a class="imgAuth" href="{{ path('app_projects') }}" id="logo">
+			<img src="{{ asset('images/logo.png') }}" alt="Logo TaskLinker"/>
+		</a>
+		<main class="mainAuth">
+			<div class="formContainer">
+				<h1>Se connecter</h1>
+				<form method="post">
+					{% if error %}
+						<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+					{% endif %}
+					<div>
+						<label for="username">E-mail</label>
+						<input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" autofocus>
+					</div>
+					<div>
+						<label for="password">Password</label>
+						<input type="password" name="_password" id="password" class="form-control" autocomplete="current-password">
+					</div>
+
+					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+					<button class="button button-submit" type="submit">
+						Continuer
+					</button>
+				</form>
+				<p>Pas de compte ?
+					<strong>
+						<a href="{{ path('app_register') }}">S'inscrire</a>
+					</strong>
+				</p>
+			</div>
+		</main>
+	</div>
+
+
+{% endblock %}

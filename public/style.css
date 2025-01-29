@@ -415,7 +415,8 @@ form {
     width: 320px;
 }
 
-form div ul li {
+form div ul li,
+.alert-danger {
     width: 100%;
     text-align: center;
     background: #ed143d36;
