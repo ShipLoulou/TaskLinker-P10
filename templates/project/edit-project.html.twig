@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Projets
+{% endblock %}
+
+{% block headerTitle %}
+	<h1>{{ project.name }}</h1>
+{% endblock %}
+
+{% block activeProjet %}
+	active
+{% endblock %}
+
+{% block stylesheets %}
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+
+	{{ form_start(formView) }}
+
+	{{ form_errors(formView) }}
+
+	{{ form_row(formView.name) }}
+	{{ form_row(formView.employee) }}
+
+	<button class="button button-submit">Modifier</button>
+
+	{{ form_end(formView) }}
+
+{% endblock %}
+
+{% block javascripts %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	<script>
+		$(function () {
+$('.select-employee').select2();
+})
+	</script>
+{% endblock %}

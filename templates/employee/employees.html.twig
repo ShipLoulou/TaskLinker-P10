@@ -1,0 +1,56 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Equipe
+{% endblock %}
+
+{% block headerTitle %}
+	<h1>Equipe</h1>
+{% endblock %}
+
+{% block activeEquipe %}
+	active
+{% endblock %}
+
+
+{% block body %}
+
+	<table id="team-container">
+		<thead>
+			<tr>
+				<th>Prénom, Nom</th>
+				<th>Statut</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for employee in employees %}
+				<tr>
+					<td>
+						<div class="employee-infos">
+							<div class="employee-avatar">
+								{{ employee.firstName | slice(0, 1) }}{{ employee.lastName | slice(0, 1) }}
+							</div>
+							<div class="employee-coords">
+								<strong>{{ employee.firstName }}
+									{{ employee.lastName}}</strong>
+								<span>{{ employee.email }}</span>
+							</div>
+						</div>
+					</td>
+					<td>{{ employee.contract }}</td>
+					<td>
+						<a class="button button-edit-team" href="{{ path('app_edit_employee', {'id': employee.id}) }}">
+							Éditer
+						</a>
+						<a class="delete-team" href="{{ path('app_delete_employee', {'id': employee.id}) }}" onclick="return confirm('Êtes-vous sur de vouloir supprimer cette employer ?')">
+							Supprimer
+						</a>
+					</td>
+				</tr>
+
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}

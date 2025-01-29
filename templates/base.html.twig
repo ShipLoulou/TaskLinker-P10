@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+		<link rel="stylesheet" href="{{ asset('style.css') }}"> {% block stylesheets %}{% endblock %}{% block javascripts %}{% endblock %}
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+	</head>
+	<body>
+		<div id="main-container">
+			<nav>
+				<a href="{{ path('app_projects') }}" id="logo">
+					<img src="{{ asset('images/logo.png') }}" alt="Logo TaskLinker"/>
+				</a>
+				<ul id="main-menu">
+					<li class="{% block activeProjet %}{% endblock %}">
+						<a href="{{ path('app_projects') }}">
+							<i class="fa-solid fa-list-check"></i>
+							Projets
+						</a>
+					</li>
+					<li class="{% block activeEquipe %}{% endblock %}">
+						<a href="{{ path('app_employees') }}">
+							<i class="fa-regular fa-user"></i>
+							Équipe
+						</a>
+					</li>
+				</ul>
+			</nav>
+			<main>
+				<header>
+					<div id="current-user"></div>
+					<div id="title-page"> {% block headerTitle %}{% endblock %}
+						</div>
+					</header>
+					<div id="content"> {% block body %}{% endblock %}
+						</div>
+					</main>
+				</div>
+			</body>
+		</html>

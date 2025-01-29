@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Projets
+{% endblock %}
+
+{% block headerTitle %}
+	<h1>Gestion des droit d'accès</h1>
+{% endblock %}
+
+{% block activeProjet %}
+	active
+{% endblock %}
+
+{% block body %}
+
+	{{ form_start(formView) }}
+
+	{{ form_errors(formView) }}
+
+	{{ form_row(formView.title) }}
+	{{ form_row(formView.description) }}
+	{{ form_row(formView.deadline) }}
+
+	{{ form_row(formView.status) }}
+	{{ form_row(formView.employee) }}
+	<button class="button button-submit">Ajouter</button>
+
+	<a href="{{ path('app_delete_task', {'id': task.id, 'id_project': task.project.id }) }}" class="delete-task">Supprimer la tâche</a>
+	{{ form_end(formView) }}
+
+{% endblock %}

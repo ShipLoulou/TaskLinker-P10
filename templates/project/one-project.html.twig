@@ -1,0 +1,70 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Projets
+{% endblock %}
+
+{% block headerTitle %}
+	<div class="flex-header">
+		<h1>{{ project.name }}</h1>
+		<div class="user-list">
+			{% for item in listEmployee %}
+				<div class="avatar">{{ item.firstName | slice(0, 1) }}{{ item.lastName | slice(0, 1) }}</div>
+
+			{% endfor %}
+		</div>
+		<a class="button" href="{{ path('app_edit_project', {'id': project.id}) }}">Modifier</a>
+	</div>
+{% endblock %}
+
+{% block activeProjet %}
+	active
+{% endblock %}
+
+{% block body %}
+
+	<div id="tasks-container">
+		{% if taskPerStatus == null %}
+			<div class="task-column">
+				<a href="{{ path('app_add_task', {'id_project': project.id}) }}" class="task-add">
+					+ Ajouter une tâche
+				</a>
+			</div>
+		{% endif %}
+
+		{% for key, task in taskPerStatus %}
+			<div class="task-column">
+				<h2>{{ key }}</h2>
+				<div class="tasks-list">
+					{% if task %}
+						{% for i in 0..task|length - 1 %}
+							<a class="task" href="{{ path('app_edit_task', {'id' : task[i].id, 'id_project': task[i].project.id}) }}">
+								<h3>{{ task[i].title }}</h3>
+								<p>{{ task[i].description }}</p>
+								<div class="task-infos">
+									{% if task[i].deadlinestring %}
+										<div class="task-deadline">
+											<i class="fa-regular fa-calendar"></i>
+											{{ task[i].deadlinestring }}
+										</div>
+									{% endif %}
+									{% if task[i].employee %}
+										<div class="mini-user">
+											{{ task[i].employee.firstName | slice(0, 1) }}{{ task[i].employee.lastName | slice(0, 1) }}
+										</div>
+									{% endif %}
+								</div>
+							</a>
+						{% endfor %}
+					{% endif %}
+
+					<a href="{{ path('app_add_task', {'id_project': project.id}) }}" class="task-add">
+						+ Ajouter une tâche
+					</a>
+				</div>
+			</div>
+		{% endfor %}
+
+	</div>
+
+{% endblock %}

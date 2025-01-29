@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Edit
+{% endblock %}
+
+{% block headerTitle %}
+	<h1>{{ employee.firstName }}
+		{{ employee.lastName }}</h1>
+{% endblock %}
+
+{% block activeEquipe %}
+	active
+{% endblock %}
+
+{% block body %}
+
+	{{ form_start(formView) }}
+
+	{{ form_errors(formView) }}
+
+	{{ form_row(formView.lastName) }}
+	{{ form_row(formView.firstName) }}
+	{{ form_row(formView.email) }}
+
+	<div class="form-flex">
+		{{ form_row(formView.arrival_date) }}
+		{{ form_row(formView.contract) }}
+	</div>
+
+	<button class="button button-submit">Enregistrer</button>
+
+	{{ form_end(formView) }}
+
+
+{% endblock %}
