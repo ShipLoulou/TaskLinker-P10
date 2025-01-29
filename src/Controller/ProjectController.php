@@ -30,7 +30,7 @@ class ProjectController extends AbstractController
         $this->em = $em;
     }
 
-    #[Route('/', name: 'app_projects')]
+    #[Route('/projets', name: 'app_projects')]
     public function showProjects()
     {
         $projects = $this->projectRepository->findByArchiveStatus(false);

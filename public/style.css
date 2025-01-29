@@ -447,7 +447,8 @@ form label {
     flex-grow: 0;
 }
 
-button.button.button-submit {
+button.button.button-submit,
+a.button.button-submit {
     width: 100%;
     background: #1F5B50;
     border-radius: 10px;
@@ -545,4 +546,104 @@ form .select2-container--default .select2-selection--multiple .select2-selection
         border-radius: 0;
         padding: 13px;
     }
+}
+
+/* Home page */
+
+.imgBackground {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.mainAuth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.imgAuth {
+    position: absolute;
+    top: 52px;
+    left: 52px;
+}
+
+.mainAuth .formContainer {
+    position: relative;
+    background-color: #4D8077;
+    width: 710px;
+    min-height: 698px;
+    border-radius: 30px;
+    color: #FFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0
+}
+
+.mainAuth .formContainer h1 {
+    font-size: 36px;
+    margin-bottom: 50px;
+}
+
+.mainAuth .formContainer a,
+.mainAuth .formContainer form label {
+    color: #FFF;
+}
+
+.mainAuth button.button.button-submit {
+    margin-top: 50px;
+}
+
+.mainAuth .btn-scape p {
+    text-align: center;
+    margin-bottom: 30px
+}
+
+.mainAuth .btn-scape div {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    width: 344px;
+}
+
+.mainAuth .btn-scape div hr {
+    width: 100%;
+}
+
+.mainAuth .btn-scape div p {
+    position: absolute;
+    background-color: #4D8077;
+    padding: 0 22px;
+}
+
+.mainAuth .btn-scape a {
+    text-decoration: none;
+}
+
+.mainAuth .btn-scape a.button.button-submit {
+    margin: auto;
+    width: 224px;
+    cursor: pointer;
+}
+
+.mainAuth .btn-scape a.button.button-submit:last-child {
+    background-color: #B1D89D;
+    color: #4D8077;
+}
+
+.mainAuth .formContainer .homeTitle {
+    margin: 0;
+}
+
+.mainAuth .subTitle {
+    margin: 30px 0 60px;
 }

@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+{% block display %}
+	style="display: none;"
+{% endblock %}
+
+{% block title %}Bienvenue sur TaskLink !
+{% endblock %}
+
+{% block authBody %}
+	<div class="background">
+		<img src="{{ asset('images/backgroundAuth.jpeg') }}" alt="" class="imgBackground">
+		<a class="imgAuth" href="{{ path('app_projects') }}" id="logo">
+			<img src="{{ asset('images/logo.png') }}" alt="Logo TaskLinker"/>
+		</a>
+		<main class="mainAuth">
+			<div class="formContainer">
+				<h1 class="homeTitle">Bienvenue sur TaskLinker</h1>
+				<p class="subTitle">Commencez dès maintenant - gratuitement</p>
+				<div class="btn-scape">
+					<p>Vous avez déjà un compte ?</p>
+					<a href="#" class="button button-submit">Se connecter</a>
+					<div>
+						<hr>
+						<p>ou</p>
+					</div>
+					<a href="#" class="button button-submit">S'incrire</a>
+				</div>
+			</div>
+		</main>
+	</div>
+{% endblock %}
