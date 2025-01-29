@@ -121,6 +121,17 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
+    public function isRoleAdmin(): ?bool
+    {
+        $roles = $this->roles;
+
+        if (in_array("ROLE_ADMIN", $roles)) {
+            return true;
+        } else {
+            return null;
+        }
+    }
+
     /**
      * @param list<string> $roles
      */

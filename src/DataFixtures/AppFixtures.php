@@ -2,8 +2,6 @@
 
 namespace App\DataFixtures;
 
-use DateTime;
-use DateInterval;
 use Faker\Factory;
 use App\Entity\Tag;
 use App\Entity\Slot;
@@ -58,7 +56,6 @@ class AppFixtures extends Fixture
             $employee->setEmail($faker->email())
                 ->setFirstName($faker->firstName())
                 ->setLastName($faker->lastName())
-                ->setRoles(['ROLE_EMPLOYEE'])
                 ->setContract($faker->randomElement($typesContract))
                 ->setArrivalDate($faker->dateTimeBetween('-9 months', 'now'))
                 ->setActive($faker->boolean((75)))

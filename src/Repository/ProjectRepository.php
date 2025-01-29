@@ -26,7 +26,7 @@ class ProjectRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function  findByArchiveStatus($value): array
+    public function findByArchiveStatus($value): array
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.archive = :val')
@@ -34,6 +34,16 @@ class ProjectRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function getProjectsByEmployeeEmail(string $email): array
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.employee', 'e')
+            ->where('e.email = :email')
+            ->setParameter('email', $email)
+            ->getQuery()
+            ->getResult(); // Retourne un tableau d'objets Project
     }
 
     //    /**

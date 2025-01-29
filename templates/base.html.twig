@@ -23,12 +23,15 @@
 							Projets
 						</a>
 					</li>
-					<li class="{% block activeEquipe %}{% endblock %}">
-						<a href="{{ path('app_employees') }}">
-							<i class="fa-regular fa-user"></i>
-							Équipe
-						</a>
-					</li>
+					{% if app.user and app.user.roleAdmin %}
+						<li class="{% block activeEquipe %}{% endblock %}">
+							<a href="{{ path('app_employees') }}">
+								<i class="fa-regular fa-user"></i>
+								Équipe
+							</a>
+						</li>
+					{% endif %}
+
 				</ul>
 			</nav>
 			<main>

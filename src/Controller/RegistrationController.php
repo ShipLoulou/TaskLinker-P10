@@ -29,7 +29,6 @@ class RegistrationController extends AbstractController
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
             $user->setContract('CDI');
-            $user->setRoles(['ROLE_EMPLOYEE']);
             $user->setArrivalDate(now());
             $user->setActive(true);
 

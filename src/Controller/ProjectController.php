@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
+use Twig\Environment;
 use App\Entity\Status;
 use App\Form\ProjectType;
-use App\Repository\ProjectRepository;
-use App\Repository\StatusRepository;
 use App\Repository\TaskRepository;
+use App\Repository\StatusRepository;
+use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Twig\Environment;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProjectController extends AbstractController
 {
@@ -33,7 +34,14 @@ class ProjectController extends AbstractController
     #[Route('/projets', name: 'app_projects')]
     public function showProjects()
     {
-        $projects = $this->projectRepository->findByArchiveStatus(false);
+        $roles = $this->getUser()->getRoles();
+
+        if (in_array('ROLE_ADMIN', $roles)) {
+            $projects = $this->projectRepository->findByArchiveStatus(false);
+        } else {
+            $projects = $this->projectRepository->getProjectsByEmployeeEmail($this->getUser()->getUserIdentifier());
+        }
+
         return $this->render('project/projects.html.twig', [
             'projects' => $projects
         ]);
@@ -70,6 +78,7 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/projet/{id}/edit', name: 'app_edit_project')]
+    #[IsGranted('ROLE_ADMIN', message: 'Vous n\'avez pas les autorisations requises pour accèder à cette page.')]
     public function editProject($id, Request $request)
     {
         $project = $this->projectRepository->find($id);
@@ -95,6 +104,7 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/projet/add', name: 'app_add_project')]
+    #[IsGranted('ROLE_ADMIN', message: 'Vous n\'avez pas les autorisations requises pour accèder à cette page.')]
     public function addProject(Request $request)
     {
         $form = $this->createForm(ProjectType::class);
@@ -127,6 +137,7 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/project/{id}/archiving', name: 'app_archiving_project')]
+    #[IsGranted('ROLE_ADMIN', message: 'Vous n\'avez pas les autorisations requises pour accèder à cette page.')]
     public function archivingProject($id)
     {
         $project = $this->projectRepository->find($id);
