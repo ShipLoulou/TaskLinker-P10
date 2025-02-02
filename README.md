@@ -1,6 +1,6 @@
-# Green Goodies
+# Tasklinker
 
-Projet 13 • Mettre en place un site de e-commerce avec Symfony • Développeur d'application PHP/Symfony
+Projet 10 • Mettre en place une gestion d'utilisateurs et d’authentification sur la plateforme de tasklinker • Développeur d'application PHP/Symfony
 
 ## Pour utiliser ce projet :
 
