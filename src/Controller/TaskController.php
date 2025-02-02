@@ -24,7 +24,7 @@ class TaskController extends AbstractController
     }
 
     #[Route('projet/{id_project}/tache/{id}', name: 'app_edit_task', priority: -1)]
-    public function editTask($id, Request $request)
+    public function editTask($id_project, $id, Request $request)
     {
         $task = $this->taskRepository->find($id);
 
@@ -39,7 +39,7 @@ class TaskController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->flush();
 
-            return $this->redirectToRoute('app_projects');
+            return $this->redirectToRoute('app_one_project', ['id' => $id_project]);
         }
 
         return $this->render('task/edit-task.html.twig', [
@@ -62,7 +62,7 @@ class TaskController extends AbstractController
             $task->setProject($project);
             $this->em->persist($task);
             $this->em->flush();
-            return $this->redirectToRoute('app_projects');
+            return $this->redirectToRoute('app_one_project', ['id' => $id_project]);
         }
 
         return $this->render('task/add-task.html.twig', [

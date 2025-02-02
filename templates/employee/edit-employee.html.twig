@@ -27,6 +27,19 @@
 		{{ form_row(formView.contract) }}
 	</div>
 
+	<div>
+		<label for="roles">Role</label>
+		<select name="roles" id="roles">
+			{% if isAdmin %}
+				<option value="ROLE_ADMIN">Chef de projet</option>
+				<option value="">Collaborateur</option>
+			{% else %}
+				<option value="">Collaborateur</option>
+				<option value="ROLE_ADMIN">Chef de projet</option>
+			{% endif %}
+		</select>
+	</div>
+
 	<button class="button button-submit">Enregistrer</button>
 
 	{{ form_end(formView) }}

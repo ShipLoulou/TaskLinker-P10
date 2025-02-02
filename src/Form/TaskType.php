@@ -2,14 +2,13 @@
 
 namespace App\Form;
 
-use App\Entity\Tag;
 use App\Entity\Task;
 use App\Entity\Status;
-use App\Entity\Project;
 use App\Entity\Employee;
 use App\Repository\StatusRepository;
 use App\Repository\EmployeeRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -21,16 +20,21 @@ class TaskType extends AbstractType
 {
     protected $statusRepository;
     protected $requestStack;
+    protected $security;
 
-    public function __construct(StatusRepository $statusRepository, RequestStack $requestStack)
+    public function __construct(StatusRepository $statusRepository, RequestStack $requestStack, Security $security)
     {
         $this->statusRepository = $statusRepository;
         $this->requestStack = $requestStack;
+        $this->security = $security;
     }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $request = $this->requestStack->getCurrentRequest();
         $projectId = $request->get('id_project');
+
+        $user = $this->security->getUser();
+        $isAdmin = $user && in_array('ROLE_ADMIN', $user->getRoles());
 
         $builder
             ->add('title', TextType::class, [
@@ -58,11 +62,19 @@ class TaskType extends AbstractType
             ->add('employee', EntityType::class, [
                 'class' => Employee::class,
                 'choice_label' => fn(Employee $employee) => $employee->getFirstName() . ' ' . $employee->getLastName(),
-                'query_builder' => function (EmployeeRepository $er) use ($projectId) {
-                    return $er->createQueryBuilder('e')
-                        ->innerJoin('e.projects', 'p') // Assuming the relation is named "projects"
-                        ->where('p.id = :projectId')
-                        ->setParameter('projectId', $projectId);
+                'query_builder' => function (EmployeeRepository $er) use ($isAdmin, $user, $projectId) {
+                    // Récupération de l'utilisateur et vérification du rôle
+                    $qb = $er->createQueryBuilder('e');
+                    if (!$isAdmin) {
+                        // Si l'utilisateur n'est pas admin, ne renvoyer que son propre nom
+                        $qb->where('e.id = :userId')
+                            ->setParameter('userId', $user);
+                    } else {
+                        $qb->innerJoin('e.projects', 'p') // Assuming the relation is named "projects"
+                            ->where('p.id = :projectId')
+                            ->setParameter('projectId', $projectId);
+                    }
+                    return $qb;
                 },
                 'placeholder' => '-- associer un employer --',
                 'required' => false

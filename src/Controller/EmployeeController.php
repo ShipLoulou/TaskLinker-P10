@@ -52,14 +52,31 @@ class EmployeeController extends AbstractController
 
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($request->request->all()['roles'] !== "") {
+                $employee->setRoles(array(
+                    $request->request->all()['roles']
+                ));
+            } else {
+                $employee->setRoles([]);
+            }
+
             $this->em->flush();
 
             return $this->redirectToRoute('app_employees');
         }
 
+        $isAdmin = false;
+
+        if (in_array("ROLE_ADMIN", $employee->getRoles())) {
+            $isAdmin = true;
+        }
+
         return $this->render('employee/edit-employee.html.twig', [
             'employee' => $employee,
+            'isAdmin' => $isAdmin,
             'formView' => $form->createView()
         ]);
     }

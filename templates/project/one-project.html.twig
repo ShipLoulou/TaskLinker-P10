@@ -10,10 +10,11 @@
 		<div class="user-list">
 			{% for item in listEmployee %}
 				<div class="avatar">{{ item.firstName | slice(0, 1) }}{{ item.lastName | slice(0, 1) }}</div>
-
 			{% endfor %}
 		</div>
-		<a class="button" href="{{ path('app_edit_project', {'id': project.id}) }}">Modifier</a>
+		{% if app.user and app.user.roleAdmin %}
+			<a class="button" href="{{ path('app_edit_project', {'id': project.id}) }}">Modifier</a>
+		{% endif %}
 	</div>
 {% endblock %}
 
