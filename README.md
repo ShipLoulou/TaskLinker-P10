@@ -6,7 +6,7 @@ Projet 10 • Mettre en place une gestion d'utilisateurs et d’authentification
 
 - Cloner le repo git
 ```
-git clone https://github.com/ShipLoulou/GreenGoodies.git
+git clone https://github.com/ShipLoulou/TaskLinker-P10.git
 ```
 - Modifier DATABESE_URL dans le .env
 - Se rendre dans le dossier `/TaskLinker` et entrer la commande suivante pour initialiser le projet
