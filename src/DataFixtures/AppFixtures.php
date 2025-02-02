@@ -49,6 +49,20 @@ class AppFixtures extends Fixture
         $employees = [];
         $employeesPerProject = [];
 
+        // Création compte admin
+        $admin = new Employee();
+        $hashAdmin = $this->encoder->hashPassword($admin, 'password');
+        $admin->setEmail('user@gmail.com')
+            ->setFirstName($faker->firstName())
+            ->setLastName($faker->lastName())
+            ->setContract('CDI')
+            ->setArrivalDate($faker->dateTimeBetween('-9 months', 'now'))
+            ->setActive(true)
+            ->setPassword($hashAdmin)
+            ->setRoles(["ROLE_ADMIN"]);
+
+        $manager->persist($admin);
+
         // Création des employés.
         for ($index = 0; $index < 15; $index++) {
             $employee = new Employee();
