@@ -702,3 +702,9 @@ form .select2-container--default .select2-selection--multiple .select2-selection
     margin-top: 50px;
     cursor: pointer;
 }
+
+#myAvatar {
+    position: absolute;
+    top: 33px;
+    right: 3%;
+}

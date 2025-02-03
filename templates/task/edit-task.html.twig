@@ -24,7 +24,7 @@
 
 	{{ form_row(formView.status) }}
 	{{ form_row(formView.employee) }}
-	<button class="button button-submit">Ajouter</button>
+	<button class="button button-submit">Sauvegarder</button>
 
 	<a href="{{ path('app_delete_task', {'id': task.id, 'id_project': task.project.id }) }}" class="delete-task">Supprimer la tâche</a>
 	{{ form_end(formView) }}

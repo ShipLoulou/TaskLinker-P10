@@ -27,6 +27,18 @@ class TaskRepository extends ServiceEntityRepository
         ;
     }
 
+    public function isEmployeeAssignedToTask(int $taskId, int $employeeId): bool
+    {
+        return (bool) $this->createQueryBuilder('t')
+            ->select('COUNT(t.id)')
+            ->where('t.id = :taskId')
+            ->andWhere('t.employee = :employeeId')
+            ->setParameter('taskId', $taskId)
+            ->setParameter('employeeId', $employeeId)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     //    /**
     //     * @return Task[] Returns an array of Task objects
     //     */

@@ -32,6 +32,13 @@ class TaskController extends AbstractController
             throw $this->createNotFoundException("La tâche demandé n'existe pas.");
         }
 
+        // Vérifie que la tache est associé à l'utilisateur connecter
+        $myTask = $this->taskRepository->isEmployeeAssignedToTask($id, $this->getUser()->getId());
+
+        if (!in_array("ROLE_ADMIN", $this->getUser()->getRoles()) && $myTask === false) {
+            throw $this->createNotFoundException("Vous n'avez pas les droits nécessaire pour accèder à la tâche.");
+        }
+
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);

@@ -34,6 +34,12 @@ class EmployeeController extends AbstractController
     {
         $employees = $this->employeeRepository->findAll();
 
+        // foreach ($employees as $value) {
+        //     if (in_array("ROLE_ADMIN", $value->getRoles())) {
+        //         dd($value);
+        //     }
+        // }
+
         return $this->render('employee/employees.html.twig', [
             'employees' => $employees
         ]);

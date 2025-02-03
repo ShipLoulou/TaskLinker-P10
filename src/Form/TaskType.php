@@ -59,37 +59,52 @@ class TaskType extends AbstractType
                 ],
                 'required' => false
             ])
-            ->add('employee', EntityType::class, [
+        ;
+        if (!$isAdmin) {
+            $builder->add('employee', EntityType::class, [
+                'label' => 'Membre',
                 'class' => Employee::class,
                 'choice_label' => fn(Employee $employee) => $employee->getFirstName() . ' ' . $employee->getLastName(),
-                'query_builder' => function (EmployeeRepository $er) use ($isAdmin, $user, $projectId) {
+                'query_builder' => function (EmployeeRepository $er) use ($user) {
+                    $qb = $er->createQueryBuilder('e');
+                    // Si l'utilisateur n'est pas admin, ne renvoyer que son propre nom
+                    $qb->where('e.id = :userId')
+                        ->setParameter('userId', $user);
+                    return $qb;
+                },
+                'data' => $user, // Définit la valeur par défaut
+                'disabled' => true, // Rend le champ non modifiable
+                'required' => false
+            ]);
+        } else {
+            $builder->add('employee', EntityType::class, [
+                'label' => 'Membre',
+                'class' => Employee::class,
+                'choice_label' => fn(Employee $employee) => $employee->getFirstName() . ' ' . $employee->getLastName(),
+                'query_builder' => function (EmployeeRepository $er) use ($projectId) {
                     // Récupération de l'utilisateur et vérification du rôle
                     $qb = $er->createQueryBuilder('e');
-                    if (!$isAdmin) {
-                        // Si l'utilisateur n'est pas admin, ne renvoyer que son propre nom
-                        $qb->where('e.id = :userId')
-                            ->setParameter('userId', $user);
-                    } else {
-                        $qb->innerJoin('e.projects', 'p') // Assuming the relation is named "projects"
-                            ->where('p.id = :projectId')
-                            ->setParameter('projectId', $projectId);
-                    }
+                    $qb->innerJoin('e.projects', 'p') // Assuming the relation is named "projects"
+                        ->where('p.id = :projectId')
+                        ->setParameter('projectId', $projectId);
                     return $qb;
                 },
                 'placeholder' => '-- associer un employer --',
                 'required' => false
-            ])
-            ->add('status', EntityType::class, [
-                'class' => Status::class,
-                'choice_label' => 'libelle',
-                'query_builder' => function (StatusRepository $sr) use ($projectId) {
-                    return $sr->createQueryBuilder('s')
-                        ->where('s.project = :project')
-                        ->setParameter('project', $projectId);
-                },
-                'placeholder' => '-- ajouter un status --',
-                'required' => false
-            ])
+            ]);
+        }
+        $builder->add('status', EntityType::class, [
+            'label' => 'Statut',
+            'class' => Status::class,
+            'choice_label' => 'libelle',
+            'query_builder' => function (StatusRepository $sr) use ($projectId) {
+                return $sr->createQueryBuilder('s')
+                    ->where('s.project = :project')
+                    ->setParameter('project', $projectId);
+            },
+            'placeholder' => '-- ajouter un status --',
+            'required' => false
+        ])
             // ->add('project', EntityType::class, [
             //     'class' => Project::class,
             //     'choice_label' => 'id',

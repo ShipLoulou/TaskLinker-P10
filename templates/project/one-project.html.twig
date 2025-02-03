@@ -9,7 +9,7 @@
 		<h1>{{ project.name }}</h1>
 		<div class="user-list">
 			{% for item in listEmployee %}
-				<div class="avatar">{{ item.firstName | slice(0, 1) }}{{ item.lastName | slice(0, 1) }}</div>
+				<div class="avatar">{{ item.firstName | slice(0, 1) |capitalize }}{{ item.lastName | slice(0, 1) |capitalize }}</div>
 			{% endfor %}
 		</div>
 		{% if app.user and app.user.roleAdmin %}
